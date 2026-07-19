@@ -47,6 +47,10 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(page, /particleCap/);
   assert.match(css, /100dvh/);
   assert.match(css, /safe-area-inset-top/);
+  assert.match(css, /"PingFang SC"/);
+  assert.match(css, /font-synthesis:\s*none/);
+  assert.match(css, /\.cake-tier\s*\{[^}]*display:\s*flex/s);
+  assert.match(css, /justify-content:\s*space-evenly/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   await access(new URL("../public/assets/music/birthday.wav", import.meta.url));
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
