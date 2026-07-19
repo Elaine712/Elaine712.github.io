@@ -24,7 +24,7 @@ test("renders the complete Chinese birthday experience", async () => {
   assert.match(html, /张晓丹老师，生日快乐！/);
   assert.match(html, /吹灭蜡烛/);
   assert.match(html, /再放一场烟花/);
-  assert.match(html, /学生敬上/);
+  assert.match(html, /王舒仪、张光旭 敬上/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|Lorem ipsum/i);
 });
 

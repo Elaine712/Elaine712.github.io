@@ -2,7 +2,7 @@ const birthdayConfig = {
   recipient: "张晓丹老师",
   birthdayMonth: 7,
   birthdayDay: 23,
-  sender: "学生敬上",
+  sender: "王舒仪、张光旭 敬上",
   openingTitle: "一份特别的生日祝福",
   openingEyebrow: "为您准备了一封信",
   greetingTitle: "张晓丹老师，生日快乐！",
@@ -26,4 +26,3 @@ const birthdayConfig = {
 };
 
 export default birthdayConfig;
-
