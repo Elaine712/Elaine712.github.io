@@ -30,7 +30,7 @@ npm run dev
 
 项目已内置一段原创轻音乐：
 
-`public/assets/music/birthday.wav`
+`public/assets/music/happy-birthday.wav`
 
 也可以替换为自己已获得授权的 MP3 或 WAV，并在 `config.js` 中修改 `musicSrc`。音乐只会在用户主动点击开启祝福后播放，以兼容手机浏览器。若音乐文件加载失败，页面会使用非常轻柔的本地合成音作为备用，不影响其他互动。
 

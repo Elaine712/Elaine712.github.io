@@ -16,7 +16,7 @@ const birthdayConfig = {
   ],
   finalWish: "愿岁岁常欢愉，年年皆胜意",
   finalNote: "祝您生日快乐，幸福安康！",
-  musicSrc: "./assets/music/birthday.wav",
+  musicSrc: "./assets/music/happy-birthday.wav",
   musicVolume: 0.35,
   showPhotos: false,
   photos: [

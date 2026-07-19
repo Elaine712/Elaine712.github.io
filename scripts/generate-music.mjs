@@ -3,24 +3,32 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const output = join(root, "public", "assets", "music", "birthday.wav");
+const output = join(root, "public", "assets", "music", "happy-birthday.wav");
 const sampleRate = 22050;
-const duration = 24;
+const tempo = 82;
+const beat = 60 / tempo;
+const duration = 22;
 const frameCount = sampleRate * duration;
 const samples = new Float64Array(frameCount);
 
+// Public-domain "Happy Birthday to You" melody, arranged as a gentle music-box instrumental.
 const melody = [
-  [261.63, 0], [329.63, 1.5], [392.0, 3], [523.25, 4.5],
-  [440.0, 6], [392.0, 7.5], [329.63, 9], [293.66, 10.5],
-  [329.63, 12], [392.0, 13.5], [493.88, 15], [587.33, 16.5],
-  [523.25, 18], [440.0, 19.5], [392.0, 21], [329.63, 22.5],
+  [392.0, 0, .5], [392.0, .5, .5], [440.0, 1, 1], [392.0, 2, 1], [523.25, 3, 1], [493.88, 4, 2],
+  [392.0, 6.5, .5], [392.0, 7, .5], [440.0, 7.5, 1], [392.0, 8.5, 1], [587.33, 9.5, 1], [523.25, 10.5, 2],
+  [392.0, 13, .5], [392.0, 13.5, .5], [783.99, 14, 1], [659.25, 15, 1], [523.25, 16, 1], [493.88, 17, 1], [440.0, 18, 2],
+  [698.46, 20.5, .5], [698.46, 21, .5], [659.25, 21.5, 1], [523.25, 22.5, 1], [587.33, 23.5, 1], [523.25, 24.5, 2],
 ];
 
 const chords = [
-  [[130.81, 164.81, 196.0], 0],
-  [[110.0, 164.81, 220.0], 6],
-  [[146.83, 185.0, 220.0], 12],
-  [[130.81, 164.81, 196.0], 18],
+  [[130.81, 164.81, 196.0], 0, 4],
+  [[123.47, 196.0, 246.94], 4, 2],
+  [[130.81, 164.81, 196.0], 6.5, 3],
+  [[98.0, 146.83, 196.0], 9.5, 3],
+  [[130.81, 164.81, 196.0], 13, 3],
+  [[87.31, 130.81, 174.61], 16, 4],
+  [[87.31, 130.81, 174.61], 20.5, 2],
+  [[98.0, 146.83, 196.0], 22.5, 2],
+  [[130.81, 164.81, 196.0], 24.5, 2],
 ];
 
 function addTone(frequency, start, length, volume, bell = false) {
@@ -38,10 +46,12 @@ function addTone(frequency, start, length, volume, bell = false) {
   }
 }
 
-for (const [notes, start] of chords) {
-  for (const frequency of notes) addTone(frequency, start, 6.2, 0.045);
+for (const [notes, start, length] of chords) {
+  for (const frequency of notes) addTone(frequency, start * beat, length * beat + .18, 0.038);
 }
-for (const [frequency, start] of melody) addTone(frequency, start, 1.7, 0.16, true);
+for (const [frequency, start, length] of melody) {
+  addTone(frequency, start * beat, length * beat * .94, 0.18, true);
+}
 
 const buffer = Buffer.alloc(44 + frameCount * 2);
 buffer.write("RIFF", 0);
