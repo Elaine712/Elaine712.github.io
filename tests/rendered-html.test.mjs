@@ -38,12 +38,16 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(config, /recipient:\s*"张晓丹老师"/);
   assert.match(config, /birthdayMonth:\s*7/);
   assert.match(config, /birthdayDay:\s*23/);
+  assert.match(config, /musicSrc:\s*"\.\/assets\/music\/birthday\.wav"/);
   assert.match(config, /showPhotos:\s*false/);
+  assert.match(page, /audio\.preload = "auto"/);
+  assert.match(page, /primeFallbackAudio\(\)/);
   assert.match(page, /devicePixelRatio/);
   assert.match(page, /visibilitychange/);
   assert.match(page, /particleCap/);
   assert.match(css, /100dvh/);
   assert.match(css, /safe-area-inset-top/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  await access(new URL("../public/assets/music/birthday.wav", import.meta.url));
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });

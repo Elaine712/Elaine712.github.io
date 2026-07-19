@@ -249,20 +249,40 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, [stage, usablePhotos]);
 
-  useEffect(() => () => {
-    audioRef.current?.pause();
-    if (fallbackTimerRef.current) window.clearInterval(fallbackTimerRef.current);
-    fallbackAudioRef.current?.close();
+  useEffect(() => {
+    const audio = new Audio(config.musicSrc);
+    audio.loop = true;
+    audio.volume = config.musicVolume;
+    audio.preload = "auto";
+    audio.load();
+    audioRef.current = audio;
+    return () => {
+      audio.pause();
+      if (fallbackTimerRef.current) window.clearInterval(fallbackTimerRef.current);
+      fallbackAudioRef.current?.close();
+    };
+  }, []);
+
+  const primeFallbackAudio = useCallback(() => {
+    if (fallbackAudioRef.current) {
+      void fallbackAudioRef.current.resume();
+      return fallbackAudioRef.current;
+    }
+    const AudioContextClass = window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioContextClass) return null;
+    const context = new AudioContextClass();
+    fallbackAudioRef.current = context;
+    void context.resume();
+    return context;
   }, []);
 
   const playFallbackMusic = useCallback(() => {
-    if (fallbackAudioRef.current) return;
-    const AudioContextClass = window.AudioContext ||
-      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    if (!AudioContextClass) return;
-    const context = new AudioContextClass();
+    if (fallbackTimerRef.current) return;
+    const context = primeFallbackAudio();
+    if (!context) return;
     const gain = context.createGain();
-    gain.gain.value = Math.min(config.musicVolume, 0.16);
+    gain.gain.value = Math.min(config.musicVolume, 0.28);
     gain.connect(context.destination);
     const notes = [261.63, 329.63, 392, 523.25, 392, 329.63];
     let noteIndex = 0;
@@ -281,24 +301,20 @@ export default function Home() {
     };
     playNote();
     fallbackTimerRef.current = window.setInterval(playNote, 1550);
-    fallbackAudioRef.current = context;
-  }, []);
+  }, [primeFallbackAudio]);
 
-  const startMusic = useCallback(async () => {
+  const startMusic = useCallback(() => {
+    primeFallbackAudio();
     if (!audioRef.current) {
       const audio = new Audio(config.musicSrc);
       audio.loop = true;
       audio.volume = config.musicVolume;
-      audio.preload = "none";
+      audio.preload = "auto";
       audioRef.current = audio;
     }
-    try {
-      await audioRef.current.play();
-    } catch {
-      playFallbackMusic();
-    }
     setMusicPlaying(true);
-  }, [playFallbackMusic]);
+    void audioRef.current.play().catch(() => playFallbackMusic());
+  }, [playFallbackMusic, primeFallbackAudio]);
 
   const stopMusic = useCallback(() => {
     audioRef.current?.pause();
@@ -320,8 +336,8 @@ export default function Home() {
     }, delay);
   }, []);
 
-  const openWish = async () => {
-    await startMusic();
+  const openWish = () => {
+    startMusic();
     moveTo("letter", 900);
   };
 
