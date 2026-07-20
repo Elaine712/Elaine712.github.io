@@ -414,13 +414,14 @@ export default function Home() {
       <section className={`scene letter-scene ${stage === "letter" ? "active" : ""}`} aria-hidden={stage !== "letter"}>
         <article className="letter-card">
           <p className="eyebrow">{config.letterEyebrow}</p>
-          <h2>{config.letterTitle}</h2>
+          <h2>
+            {config.letterTitleLines.map((line) => <span key={line}>{line}</span>)}
+          </h2>
           <div className="message-lines">
             {config.letterMessage.map((line, index) => (
               <p key={line} style={{ "--line-delay": `${0.5 + index * 0.7}s` } as React.CSSProperties}>{line}</p>
             ))}
           </div>
-          <footer>{config.letterSender}</footer>
           <button className="primary-button" onClick={afterLetter} tabIndex={stage === "letter" ? 0 : -1}>点亮生日蛋糕 <span>→</span></button>
         </article>
       </section>
@@ -466,7 +467,7 @@ export default function Home() {
       <section className={`scene final-scene ${stage === "final" ? "active" : ""}`} aria-hidden={stage !== "final"}>
         <article className="final-card">
           <div className="mini-cake" aria-hidden="true"><i /><span>✦</span></div>
-          <p className="eyebrow">{dateLabel} · 谨以此页送上祝福</p>
+          <p className="eyebrow">{config.finalEyebrow}</p>
           <h2>{config.greetingTitle}</h2>
           <div className="final-photo-story" aria-label="生日留影">
             {config.finalPhotos.map((photo, index) => (

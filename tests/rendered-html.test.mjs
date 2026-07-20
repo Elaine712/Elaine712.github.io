@@ -19,9 +19,9 @@ test("renders the complete Chinese birthday experience", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
   assert.match(html, /<html lang="zh-CN">/);
-  assert.match(html, /<title>张晓丹老师生日快乐<\/title>/);
+  assert.match(html, /<title>晓丹老师生日快乐<\/title>/);
   assert.match(html, /一份特别的生日祝福/);
-  assert.match(html, /张晓丹老师，生日快乐！/);
+  assert.match(html, /晓丹老师，生日快乐！/);
   assert.match(html, /吹灭蜡烛/);
   assert.match(html, /再放一场烟花/);
   assert.match(html, /王舒仪、张光旭 敬上/);
@@ -35,12 +35,15 @@ test("keeps editable content centralized and removes the starter", async () => {
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
   assert.match(page, /import config from "\.\.\/config"/);
-  assert.match(config, /recipient:\s*"张晓丹老师"/);
+  assert.match(config, /recipient:\s*"晓丹老师"/);
   assert.match(config, /birthdayMonth:\s*7/);
   assert.match(config, /birthdayDay:\s*23/);
   assert.match(config, /letterEyebrow:\s*"TO · 我们美丽温柔的晓丹老师"/);
-  assert.match(config, /letterTitle:\s*"早上好中午好晚上好，每天都好！"/);
-  assert.match(config, /letterSender:\s*"—— 王舒仪、张光旭 敬上"/);
+  assert.match(config, /letterTitleLines:\s*\[/);
+  assert.match(config, /"早上好中午好晚上好，"/);
+  assert.match(config, /"每天都好！"/);
+  assert.match(config, /finalEyebrow:\s*"送给老师一张开心快乐卡"/);
+  assert.doesNotMatch(config, /letterSender/);
   assert.match(config, /家人到来~/);
   assert.match(config, /慢慢打开这份特别的祝福吧！/);
   assert.match(config, /musicSrc:\s*"\.\/assets\/music\/happy-birthday\.wav"/);
