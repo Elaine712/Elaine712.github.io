@@ -468,6 +468,14 @@ export default function Home() {
           <div className="mini-cake" aria-hidden="true"><i /><span>✦</span></div>
           <p className="eyebrow">{dateLabel} · 谨以此页送上祝福</p>
           <h2>{config.greetingTitle}</h2>
+          <div className="final-photo-story" aria-label="生日留影">
+            {config.finalPhotos.map((photo, index) => (
+              <figure className={`final-photo-card final-photo-${index + 1}`} key={photo.src}>
+                <img src={photo.src} alt={photo.alt} decoding="async" />
+                <figcaption>{photo.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
           <div className="final-message">
             {config.message.map((line) => <p key={line}>{line}</p>)}
           </div>

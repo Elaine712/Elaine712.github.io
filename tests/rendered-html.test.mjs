@@ -40,6 +40,9 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(config, /birthdayDay:\s*23/);
   assert.match(config, /musicSrc:\s*"\.\/assets\/music\/happy-birthday\.wav"/);
   assert.match(config, /showPhotos:\s*false/);
+  assert.match(config, /finalPhotos:\s*\[/);
+  assert.match(config, /teacher-zhang\.webp/);
+  assert.match(config, /cloud-cake\.webp/);
   assert.match(page, /audio\.preload = "auto"/);
   assert.match(page, /primeFallbackAudio\(\)/);
   assert.match(page, /devicePixelRatio/);
@@ -51,7 +54,10 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(css, /font-synthesis:\s*none/);
   assert.match(css, /\.cake-tier\s*\{[^}]*display:\s*flex/s);
   assert.match(css, /justify-content:\s*space-evenly/);
+  assert.match(css, /\.final-photo-story/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   await access(new URL("../public/assets/music/happy-birthday.wav", import.meta.url));
+  await access(new URL("../public/assets/photos/teacher-zhang.webp", import.meta.url));
+  await access(new URL("../public/assets/photos/cloud-cake.webp", import.meta.url));
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });

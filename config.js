@@ -22,6 +22,18 @@ const birthdayConfig = {
   photos: [
     // { src: "./assets/photos/photo1.jpg", caption: "珍贵的美好时光" },
   ],
+  finalPhotos: [
+    {
+      src: "./assets/photos/teacher-zhang.webp",
+      alt: "张晓丹老师在绿荫中的照片",
+      caption: "盛夏留影",
+    },
+    {
+      src: "./assets/photos/cloud-cake.webp",
+      alt: "蓝天下形似蛋糕的白云",
+      caption: "白云蛋糕",
+    },
+  ],
   fireworksDuration: 10000,
 };
 
