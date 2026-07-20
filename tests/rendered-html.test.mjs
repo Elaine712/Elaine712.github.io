@@ -38,12 +38,17 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(config, /recipient:\s*"张晓丹老师"/);
   assert.match(config, /birthdayMonth:\s*7/);
   assert.match(config, /birthdayDay:\s*23/);
+  assert.match(config, /letterEyebrow:\s*"TO · 我们美丽温柔的晓丹老师"/);
+  assert.match(config, /letterTitle:\s*"早上好中午好晚上好，每天都好！"/);
+  assert.match(config, /letterSender:\s*"—— 王舒仪、张光旭 敬上"/);
+  assert.match(config, /家人到来~/);
+  assert.match(config, /慢慢打开这份特别的祝福吧！/);
   assert.match(config, /musicSrc:\s*"\.\/assets\/music\/happy-birthday\.wav"/);
   assert.match(config, /showPhotos:\s*false/);
   assert.match(config, /finalPhotos:\s*\[/);
   assert.match(config, /teacher-zhang\.webp/);
   assert.match(config, /cloud-cake\.webp/);
-  assert.match(config, /fireworksDuration:\s*4500/);
+  assert.match(config, /fireworksDuration:\s*1800/);
   assert.match(page, /\.filter\(\(line\) => line !== config\.finalNote\)/);
   assert.match(page, /audio\.preload = "auto"/);
   assert.match(page, /primeFallbackAudio\(\)/);

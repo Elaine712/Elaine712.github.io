@@ -413,14 +413,14 @@ export default function Home() {
 
       <section className={`scene letter-scene ${stage === "letter" ? "active" : ""}`} aria-hidden={stage !== "letter"}>
         <article className="letter-card">
-          <p className="eyebrow">TO · {config.recipient}</p>
-          <h2>{config.greetingTitle}</h2>
+          <p className="eyebrow">{config.letterEyebrow}</p>
+          <h2>{config.letterTitle}</h2>
           <div className="message-lines">
-            {config.message.map((line, index) => (
+            {config.letterMessage.map((line, index) => (
               <p key={line} style={{ "--line-delay": `${0.5 + index * 0.7}s` } as React.CSSProperties}>{line}</p>
             ))}
           </div>
-          <footer><span className="signature-line" />{config.sender}</footer>
+          <footer>{config.letterSender}</footer>
           <button className="primary-button" onClick={afterLetter} tabIndex={stage === "letter" ? 0 : -1}>点亮生日蛋糕 <span>→</span></button>
         </article>
       </section>
