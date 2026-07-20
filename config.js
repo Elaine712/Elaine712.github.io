@@ -34,7 +34,7 @@ const birthdayConfig = {
       caption: "白云蛋糕",
     },
   ],
-  fireworksDuration: 10000,
+  fireworksDuration: 4500,
 };
 
 export default birthdayConfig;

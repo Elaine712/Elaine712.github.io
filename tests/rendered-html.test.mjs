@@ -43,6 +43,8 @@ test("keeps editable content centralized and removes the starter", async () => {
   assert.match(config, /finalPhotos:\s*\[/);
   assert.match(config, /teacher-zhang\.webp/);
   assert.match(config, /cloud-cake\.webp/);
+  assert.match(config, /fireworksDuration:\s*4500/);
+  assert.match(page, /\.filter\(\(line\) => line !== config\.finalNote\)/);
   assert.match(page, /audio\.preload = "auto"/);
   assert.match(page, /primeFallbackAudio\(\)/);
   assert.match(page, /devicePixelRatio/);

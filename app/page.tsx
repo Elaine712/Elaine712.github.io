@@ -477,7 +477,9 @@ export default function Home() {
             ))}
           </div>
           <div className="final-message">
-            {config.message.map((line) => <p key={line}>{line}</p>)}
+            {config.message
+              .filter((line) => line !== config.finalNote)
+              .map((line) => <p key={line}>{line}</p>)}
           </div>
           <p className="final-note">{config.finalNote}</p>
           <footer>— {config.sender}</footer>

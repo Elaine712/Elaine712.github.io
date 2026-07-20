@@ -349,7 +349,7 @@ h1, h2, p { text-wrap: balance; }
 .ribbons i:nth-child(11) { left: 91%; animation-delay: -3s; background: #8cb8cc; }
 .ribbons i:nth-child(12) { left: 97%; animation-delay: -2.6s; }
 
-.final-scene { justify-content: center; gap: 14px; padding-top: calc(env(safe-area-inset-top) + 64px); overflow-y: auto; }
+.final-scene { justify-content: center; gap: 14px; padding-top: calc(env(safe-area-inset-top) + 64px); overflow-y: auto; transition-duration: .45s; }
 .final-card { flex: 0 1 auto; max-height: calc(100dvh - 192px); overflow: auto; padding: 24px 24px 18px; text-align: center; scrollbar-width: none; }
 .final-card::-webkit-scrollbar { display: none; }
 .final-card h2 { margin-bottom: 13px; font-size: clamp(24px, 6.5vw, 34px); }
